@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feather Servo Controller</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            font-family: sans-serif;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: #0070f3;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px 0 rgba(0,112,243,0.3.9);
+            transition: transform 0.1s ease;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="servoBtn">Trigger Servo</button>
+
+    <script>
+        // Use SECURE WebSockets (wss) and port 8884 for HiveMQ public broker
+        const brokerUrl = 'wss://broker.hivemq.com:8884/mqtt';
+        const topic = 'feather/servo';
+
+        console.log("Connecting to MQTT broker...");
+        const client = mqtt.connect(brokerUrl);
+
+        client.on('connect', () => {
+            console.log('Successfully connected to MQTT via Secure WebSockets!');
+        });
+
+        client.on('error', (err) => {
+            console.error('Connection error: ', err);
+        });
+
+        // Button click event
+        document.getElementById('servoBtn').addEventListener('click', () => {
+            if (client.connected) {
+                console.log("Publishing message...");
+                client.publish(topic, 'activate');
+            } else {
+                alert('Not connected to MQTT broker yet. Try again in a moment.');
+            }
+        });
+    </script>
+</body>
+</html>
