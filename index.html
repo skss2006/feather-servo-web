@@ -1,65 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feather Servo Controller</title>
-    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
-            font-family: sans-serif;
-        }
-        button {
-            padding: 20px 40px;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            background-color: #0070f3;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 14px 0 rgba(0,112,243,0.3.9);
-            transition: transform 0.1s ease;
-        }
-        button:active {
-            transform: scale(0.95);
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    body {background-color: #eceff2}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 24.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #0956f0}
+    span.s1 {font-kerning: none}
+  </style>
 </head>
 <body>
-
-    <button id="servoBtn">Trigger Servo</button>
-
-    <script>
-        // Use SECURE WebSockets (wss) and port 8884 for HiveMQ public broker
-        const brokerUrl = 'wss://broker.hivemq.com:8884/mqtt';
-        const topic = 'feather/servo';
-
-        console.log("Connecting to MQTT broker...");
-        const client = mqtt.connect(brokerUrl);
-
-        client.on('connect', () => {
-            console.log('Successfully connected to MQTT via Secure WebSockets!');
-        });
-
-        client.on('error', (err) => {
-            console.error('Connection error: ', err);
-        });
-
-        // Button click event
-        document.getElementById('servoBtn').addEventListener('click', () => {
-            if (client.connected) {
-                console.log("Publishing message...");
-                client.publish(topic, 'activate');
-            } else {
-                alert('Not connected to MQTT broker yet. Try again in a moment.');
-            }
-        });
-    </script>
+<p class="p1"><span class="s1"><b>Open Gate</b></span></p>
 </body>
 </html>
